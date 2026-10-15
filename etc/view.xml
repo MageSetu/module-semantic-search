@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <media>
+        <images module="Magento_Catalog">
+            <image id="ai_search_product_thumbnail_image" type="thumbnail">
+                <width>220</width>
+                <height>220</height>
+            </image>
+        </images>
+    </media>
+</view>

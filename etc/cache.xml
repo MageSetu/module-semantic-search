@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/Cache/etc/cache.xsd">
+    <type name="magesetu_semantic_search_result"
+          translate="label,description"
+          instance="MageSetu\SemanticSearch\Model\Cache\Type\SearchResult">
+        <label>MageSetu Semantic Search Results</label>
+        <description>Guardrail result, product ids and personalized messages</description>
+    </type>
+</config>

@@ -1,0 +1,42 @@
+//  AI Search Button
+
+@ai-search-icon-default: '@{baseDir}MageSetu_SemanticSearch/images/ai-search-icon.png';
+@ai-search-icon-hover: '@{baseDir}MageSetu_SemanticSearch/images/ai-search-icon-hover.png';
+@ai-search-btn-size: 30px;
+@ai-search-icon-size: 30px;
+
+.ai-search-btn-wrapper {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 6px;
+}
+
+.ai-search-btn {
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    height: @ai-search-btn-size;
+    justify-content: center;
+    text-decoration: none;
+    width: @ai-search-btn-size;
+
+    //  Default icon via background-image
+    &::before {
+        content: '';
+        display: block;
+        width: @ai-search-icon-size;
+        height: @ai-search-icon-size;
+        background: url(@ai-search-icon-default) no-repeat center center;
+        background-size: contain;
+        transition: opacity .18s ease;
+    }
+
+    &:hover {
+        //  Swap to hover icon
+        &::before {
+            background-image: url(@ai-search-icon-hover);
+        }
+    }
+}

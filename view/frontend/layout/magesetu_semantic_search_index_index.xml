@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Ai Search</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="top.search" remove="true" />
+        <referenceBlock name="ai.search.button" remove="true" />
+        <referenceContainer name="content">
+            <block class="MageSetu\SemanticSearch\Block\AiSearch\Main"
+                name="ai-search-main"
+                template="MageSetu_SemanticSearch::ai-search/main.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="ai-searchbox" xsi:type="array">
+                                <item name="component" xsi:type="string">MageSetu_SemanticSearch/js/view/ai-searchbox</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">MageSetu_SemanticSearch/ai-searchbox</item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="list" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">10</item>
+                                        <item name="component" xsi:type="string">MageSetu_SemanticSearch/js/view/ai-searchbox/products</item>
+                                        <item name="displayArea" xsi:type="string">children</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

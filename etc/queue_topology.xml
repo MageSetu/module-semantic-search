@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+
+    <exchange name="magento" type="topic">
+        <binding id="magesetu_semanticsearch_generate_embeddings"
+            topic="magesetu.semanticsearch.generate_embeddings"
+            destinationType="queue"
+            destination="magesetu.semanticsearch.generate_embeddings" />
+            
+        <binding id="magesetu_semanticsearch_remove_embeddings"
+            topic="magesetu.semanticsearch.remove_embeddings"
+            destinationType="queue"
+            destination="magesetu.semanticsearch.remove_embeddings" />
+    </exchange>
+</config>

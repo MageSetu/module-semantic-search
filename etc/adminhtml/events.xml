@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- handle events -->
+    <event name="admin_system_config_changed_section_magesetu_semantic_search">
+        <observer
+            name="magesetu_semanticsearch_handle_embedding_config_change"
+            instance="MageSetu\SemanticSearch\Observer\HandleEmbeddingConfigChange" />
+        <observer
+            name="magesetu_semanticsearch_handle_guardrails_config_change"
+            instance="MageSetu\SemanticSearch\Observer\HandleGuardrailsConfigChange" />
+        <observer
+            name="magesetu_semanticsearch_handle_vector_storage_config_change"
+            instance="MageSetu\SemanticSearch\Observer\HandleVectorStorageConfigChange" />
+    </event>
+    <event name="store_delete_commit_after">
+        <observer
+            name="magesetu_semanticsearch_delete_vector_collection"
+            instance="MageSetu\SemanticSearch\Observer\DeleteVectorCollectionForStore" />
+    </event>
+</config>

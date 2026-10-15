@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="magesetu_semanticsearch_product"
+            view_id="magesetu_semanticsearch_product"
+            class="MageSetu\SemanticSearch\Model\Indexer\SemanticSearch\Indexer"
+            primary="catalog_product">
+        <title translate="true">Semantic Search Product Embeddings</title>
+        <description translate="true">
+            Indexes product data into vector embeddings for semantic search.
+        </description>
+        <!--
+            Dependencies ensure our indexer runs AFTER core data is committed.
+        -->
+        <dependencies>
+            <indexer id="catalog_product_attribute"/>
+            <indexer id="catalog_product_price"/>
+        </dependencies>
+    </indexer>
+</config>

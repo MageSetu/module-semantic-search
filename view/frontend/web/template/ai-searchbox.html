@@ -1,0 +1,52 @@
+<div class="searchbox-container">
+    <div class="loader"></div>
+
+    <div class="searchbox-header">
+        <h2 class="heading" translate="'AI Powered Search'"></h2>
+        <span class="heading heading-sparkle" aria-hidden="true">
+            <svg class="sparkle-large" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"></svg>
+            <svg class="sparkle-small" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"></svg>
+        </span>
+        <p class="heading-subtitle" translate="'Ask anything. Get smart, personalized recommendations.'"></p>
+    </div>
+
+    <div class="query">
+        <form id="searchbox-form" submit="onSubmit">
+            <div class="searchbox-input-wrapper">
+                <textarea
+                    placeholder="What are you looking for?"
+                    class="searchbox-input"
+                    name="searchbox-input"
+                    autocomplete="off"
+                    rows="1"
+                    maxlength="500"
+                    data-bind="value: query, valueUpdate: 'afterkeydown', event: { keydown: onKeydown }"></textarea>
+                <button type="submit" class="searchbox-submit-btn" aria-label="Submit search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+            <div class="query-meta">
+                <span class="query-char-count" data-bind="text: query().length + ' / 500'"></span>
+                <span class="query-hint" data-bind="visible: queryHint, text: queryHint"></span>
+            </div>
+        </form>
+    </div>
+
+    <div class="error-wrapper" if="errorMessage">
+        <div class="error-message">
+            <span data-bind="text: errorMessage"></span>
+        </div>
+        <div class="use-standard-search">
+            <span translate="'or continue with our '"></span>
+            <a attr="href: advanceSearchUrl" translate="'standard search'"></a>
+            <span text="'?'"></span>
+        </div>
+    </div>
+
+    <!-- ko foreach: getRegion('children') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+</div>

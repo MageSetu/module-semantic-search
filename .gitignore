@@ -1,0 +1,39 @@
+# Composer
+/vendor/
+composer.lock
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+desktop.ini
+Thumbs.db
+ehthumbs.db
+*Zone.Identifier*
+*:Zone.Identifier
+*.lnk
+
+# Testing & Quality Tools
+.phpunit.result.cache
+.php-cs-fixer.cache
+.scannerwork/
+.coverage/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Environment and secrets
+.env
+.env.*
+!.env.example

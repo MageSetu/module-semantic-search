@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <!-- Preferences -->
+    <preference
+        for="MageSetu\SemanticSearch\Api\CleanVectorStorageInterface"
+        type="MageSetu\SemanticSearch\Model\Vector\CleanVectorStorage" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\ConfigInterface"
+        type="MageSetu\SemanticSearch\Model\Config" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\EnabledStoresProviderInterface"
+        type="MageSetu\SemanticSearch\Model\EnabledStoresProvider" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\EnvironmentResolverInterface"
+        type="MageSetu\SemanticSearch\Model\EnvironmentResolver" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\ProductManagementInterface"
+        type="MageSetu\SemanticSearch\Model\ProductManagement" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\SemanticSearchInterface"
+        type="MageSetu\SemanticSearch\Model\SemanticSearch" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\VectorStoragePoolInterface"
+        type="MageSetu\SemanticSearch\Model\Vector\VectorStoragePool" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\VectorStorageProviderInterface"
+        type="MageSetu\SemanticSearch\Model\Vector\StorageProvider" />
+
+    <preference
+        for="MageSetu\SemanticSearch\Api\Data\ProductInterface"
+        type="MageSetu\SemanticSearch\Model\Product" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\Data\SearchResultProductInterface"
+        type="MageSetu\SemanticSearch\Model\Data\SearchResultProduct" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\Data\SemanticSearchResponseInterface"
+        type="MageSetu\SemanticSearch\Model\Data\SemanticSearchResponse" />
+    <preference
+        for="MageSetu\SemanticSearch\Api\Data\VectorDocumentInterface"
+        type="MageSetu\SemanticSearch\Model\Vector\Document"/>
+
+    <!-- Custom loggers -->
+    <virtualType name="MageSetu\SemanticSearch\Logger\ErrorHandler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/magesetu_semantic_search.log</argument>
+            <argument name="loggerType" xsi:type="const">Monolog\Logger::ERROR</argument>
+        </arguments>
+    </virtualType>
+    <type name="MageSetu\SemanticSearch\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">magesetu_semantic_search</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="error" xsi:type="object">MageSetu\SemanticSearch\Logger\ErrorHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Custom commands -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="magesetu_semantic_search_remove_orphaned_embeddings" xsi:type="object">MageSetu\SemanticSearch\Console\Command\RemoveOrphanedEmbeddingsCommand</item>
+                <item name="magesetu_semantic_search_show_collection_prefix" xsi:type="object">MageSetu\SemanticSearch\Console\Command\ShowCollectionPrefixCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Plugins -->
+    <type name="Magento\Catalog\Model\Product\Action">
+        <plugin
+            name="magesetu_semanticsearch_product_mass_update_plugin"
+            type="MageSetu\SemanticSearch\Plugin\Model\Product\ActionPlugin"
+            sortOrder="10"/>
+    </type>
+    
+    <!-- UI Component Grid Data Provider -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="magesetu_semanticsearch_products_listing_data_source" xsi:type="string">MageSetu\SemanticSearch\Model\ResourceModel\Product\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageSetu\SemanticSearch\Model\ResourceModel\Product\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magesetu_semantic_search_product</argument>
+            <argument name="resourceModel" xsi:type="string">MageSetu\SemanticSearch\Model\ResourceModel\Product</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- AiClientPool Configurations -->
+    <virtualType name="EmbeddingClientPool" type="MageSetu\AiBase\Model\Client\AiClientPool">
+        <arguments>
+            <argument name="poolCode" xsi:type="string">magesetu_semantic_search_embedding</argument>
+            <argument name="capability" xsi:type="string">MageSetu\AiBase\Api\EmbeddingClientInterface</argument>
+            <argument name="factories" xsi:type="array">
+                <item name="ollama" xsi:type="object">MageSetu\AiBase\Model\Client\Embedding\OllamaEmbeddingClientFactory</item>
+                <item name="openai" xsi:type="object">MageSetu\AiBase\Model\Client\Embedding\OpenAiEmbeddingClientFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PersonalizedMessageClientPool" type="MageSetu\AiBase\Model\Client\AiClientPool">
+        <arguments>
+            <argument name="poolCode" xsi:type="string">magesetu_semantic_search_personalized_message</argument>
+            <argument name="capability" xsi:type="string">MageSetu\AiBase\Api\ChatClientInterface</argument>
+            <argument name="factories" xsi:type="array">
+                <item name="ollama" xsi:type="object">MageSetu\AiBase\Model\Client\Chat\OllamaChatClientFactory</item>
+                <item name="openai" xsi:type="object">MageSetu\AiBase\Model\Client\Chat\OpenAiChatClientFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GuardrailsClientPool" type="MageSetu\AiBase\Model\Client\AiClientPool">
+        <arguments>
+            <argument name="poolCode" xsi:type="string">magesetu_semantic_search_guardrails</argument>
+            <argument name="capability" xsi:type="string">MageSetu\AiBase\Api\ChatClientInterface</argument>
+            <argument name="factories" xsi:type="array">
+                <item name="ollama" xsi:type="object">MageSetu\AiBase\Model\Client\Chat\OllamaChatClientFactory</item>
+                <item name="openai" xsi:type="object">MageSetu\AiBase\Model\Client\Chat\OpenAiChatClientFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="EmbeddingClientProvider" type="MageSetu\AiBase\Model\Client\AiClientProvider">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">EmbeddingClientPool</argument>
+            <argument name="optionProviders" xsi:type="array">
+                <item name="openai" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OpenAiEmbeddingOptions</item>
+                <item name="ollama" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OllamaEmbeddingOptions</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="PersonalizedMessageClientProvider" type="MageSetu\AiBase\Model\Client\AiClientProvider">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">PersonalizedMessageClientPool</argument>
+            <argument name="optionProviders" xsi:type="array">
+                <item name="openai" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OpenAiPersonalizedMessageOptions</item>
+                <item name="ollama" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OllamaPersonalizedMessageOptions</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GuardrailsClientProvider" type="MageSetu\AiBase\Model\Client\AiClientProvider">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">GuardrailsClientPool</argument>
+            <argument name="optionProviders" xsi:type="array">
+                <item name="openai" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OpenAiGuardrailsOptions</item>
+                <item name="ollama" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OllamaGuardrailsOptions</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageSetu\SemanticSearch\Model\Service\PersonalizedMessageService">
+        <arguments>
+            <argument name="aiClientProvider" xsi:type="object">PersonalizedMessageClientProvider</argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Model\Service\EmbeddingGenerator">
+        <arguments>
+            <argument name="embeddingClientProvider" xsi:type="object">EmbeddingClientProvider</argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Model\Service\VectorSearchService">
+        <arguments>
+            <argument name="embeddingClientProvider" xsi:type="object">EmbeddingClientProvider</argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Model\Service\SearchQueryValidator">
+        <arguments>
+            <argument name="guardrailClientProvider" xsi:type="object">GuardrailsClientProvider</argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Model\Service\PayloadProcessor">
+        <arguments>
+            <argument name="embeddingClientOptionsProviders" xsi:type="array">
+                <item name="openai" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OpenAiEmbeddingOptions</item>
+                <item name="ollama" xsi:type="object">MageSetu\SemanticSearch\Model\ClientOptions\OllamaEmbeddingOptions</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Controller\Adminhtml\SystemConfig\TestEmbeddingConnection">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">EmbeddingClientPool</argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Controller\Adminhtml\SystemConfig\TestPersonalizedMessageConnection">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">PersonalizedMessageClientPool</argument>
+        </arguments>
+    </type>
+    <type name="MageSetu\SemanticSearch\Controller\Adminhtml\SystemConfig\TestGuardrailsConnection">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">GuardrailsClientPool</argument>
+        </arguments>
+    </type>
+    <virtualType name="MageSetu\SemanticSearch\Model\Config\Source\EmbeddingProvider" type="MageSetu\AiBase\Model\Config\Source\ModelProvider">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">EmbeddingClientPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageSetu\SemanticSearch\Model\Config\Source\PersonalizedMessageProvider" type="MageSetu\AiBase\Model\Config\Source\ModelProvider">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">PersonalizedMessageClientPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageSetu\SemanticSearch\Model\Config\Source\GuardrailsProvider" type="MageSetu\AiBase\Model\Config\Source\ModelProvider">
+        <arguments>
+            <argument name="aiClientPool" xsi:type="object">GuardrailsClientPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Vector Storage configurations -->
+    <type name="MageSetu\SemanticSearch\Model\Vector\VectorStoragePool">
+        <arguments>
+            <argument name="storages" xsi:type="array">
+                <item name="opensearch" xsi:type="object">MageSetu\SemanticSearch\Model\Vector\Storage\OpenSearch</item>
+                <item name="qdrant" xsi:type="object">MageSetu\SemanticSearch\Model\Vector\Storage\Qdrant</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="SemanticSearchHttpClient" type="MageSetu\Common\Http\HttpClient">
+        <arguments>
+            <argument name="logger" xsi:type="object">MageSetu\SemanticSearch\Logger\Logger</argument>
+        </arguments>
+    </virtualType>
+    <type name="MageSetu\SemanticSearch\Model\Vector\Storage\Qdrant">
+        <arguments>
+            <argument name="http" xsi:type="object">SemanticSearchHttpClient</argument>
+        </arguments>
+    </type>
+
+</config>

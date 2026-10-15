@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!-- Table: magesetu_semantic_search_product -->
+    <table name="magesetu_semantic_search_product" resource="default" engine="innodb"
+           comment="MageSetu Semantic Search Product Table">
+
+        <column xsi:type="int"
+                name="id"
+                unsigned="true"
+                nullable="false"
+                identity="true"
+                comment="Primary ID"/>
+
+        <column xsi:type="int"
+                name="product_id"
+                unsigned="true"
+                nullable="false"
+                comment="Product Entity ID"/>
+
+        <column xsi:type="smallint"
+                name="store_id"
+                unsigned="true"
+                nullable="false"
+                comment="Store ID"/>
+
+        <column xsi:type="varchar"
+                name="content_hash"
+                nullable="false"
+                length="64"
+                comment="SHA256 Content Hash"/>
+
+        <column xsi:type="smallint"
+                name="embedding_status"
+                unsigned="true"
+                nullable="false"
+                default="0"
+                comment="Embedding Status: 0 Pending 1 Success 2 Failed"/>
+
+        <column xsi:type="text"
+                name="message"
+                nullable="true"
+                comment="Error Message"/>
+
+        <column xsi:type="timestamp"
+                name="created_at"
+                nullable="false"
+                default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+                
+        <column xsi:type="timestamp"
+                name="updated_at"
+                nullable="false"
+                default="CURRENT_TIMESTAMP"
+                on_update="true"
+                comment="Updated At"/>
+
+        <!-- Primary Key -->
+        <constraint xsi:type="primary"
+                    referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+
+        <!-- Unique product/store combination -->
+        <constraint xsi:type="unique"
+                    referenceId="MAGESETU_SEMANTIC_SEARCH_PRODUCT_STORE_UNIQUE">
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </constraint>
+
+        <!-- FK: catalog_product_entity -->
+        <constraint xsi:type="foreign"
+                    referenceId="MAGESETU_SEMANTIC_SEARCH_PRODUCT_FK"
+                    table="magesetu_semantic_search_product"
+                    column="product_id"
+                    referenceTable="catalog_product_entity"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+
+        <!-- FK: store -->
+        <constraint xsi:type="foreign"
+                    referenceId="MAGESETU_SEMANTIC_SEARCH_STORE_FK"
+                    table="magesetu_semantic_search_product"
+                    column="store_id"
+                    referenceTable="store"
+                    referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+
+        <index referenceId="SEMANTIC_SEARCH_HASH_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+
+    </table>
+
+</schema>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MageSetu_SemanticSearch::placeholder"
+            title="Semantic Search"
+            translate="title"
+            module="MageSetu_SemanticSearch"
+            sortOrder="20"
+            parent="MageSetu_Common::main"
+            resource="MageSetu_SemanticSearch::manage"/>
+        <add id="MageSetu_SemanticSearch::main"
+            title="Semantic Search"
+            translate="title"
+            module="MageSetu_SemanticSearch"
+            sortOrder="20"
+            parent="MageSetu_Common::main"
+            resource="MageSetu_SemanticSearch::manage"/>
+        <add id="MageSetu_SemanticSearch::manage_products"
+            title="Manage Products"
+            translate="title"
+            module="MageSetu_SemanticSearch"
+            sortOrder="10"
+            parent="MageSetu_SemanticSearch::main"
+            resource="MageSetu_SemanticSearch::manage_products"
+            action="magesetu_semanticsearch/products/grid"/>
+        <add id="MageSetu_SemanticSearch::config"
+            title="Configurations"
+            translate="title"
+            module="MageSetu_SemanticSearch"
+            sortOrder="70"
+            parent="MageSetu_SemanticSearch::main"
+            action="adminhtml/system_config/edit/section/magesetu_semantic_search"
+            resource="MageSetu_SemanticSearch::config"/>
+    </menu>
+</config>

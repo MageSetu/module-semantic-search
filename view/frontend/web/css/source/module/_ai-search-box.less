@@ -1,0 +1,370 @@
+//  variables
+//  ______________________________
+
+@ai-primary: #4f6ef7;
+@ai-primary-dark: #3a56d4;
+@ai-avatar-bg: #eef1fd;
+@ai-avatar-color: @ai-primary;
+@border-radius-lg: 16px;
+@border-radius-md: 12px;
+@border-radius-sm: 8px;
+@shadow-card: 0 2px 10px rgba(0, 0, 0, .08);
+@shadow-card-hover: 0 6px 20px rgba(0, 0, 0, .13);
+@text-dark: #1a1a2e;
+@text-mid: #444;
+@text-muted: #888;
+@bg-page: #f5f6fa;
+@bg-card: #fff;
+@searchbox-input-wrapper-border-color: #dde0eb;
+@searchbox-input-placeholder-color: #b0b5c9;
+@ai-search-error-color: #c0392b;
+@ai-search-error-bg-color: #fff0ee;
+@product-image-wrapper-bg: #f0f1f5;
+
+//  common
+//  ______________________________
+
+& when (@media-common = true) {
+
+    .searchbox-container {
+        background: @bg-page;
+        border-radius: @border-radius-lg;
+        margin: 0 auto;
+        max-width: 1200px;
+        min-height: 300px;
+        padding: 40px 24px 60px;
+
+        //  ── Header ───────────────────────────────────────────
+
+        .searchbox-header {
+            margin-bottom: 32px;
+            text-align: center;
+
+            .heading {
+                align-items: center;
+                color: @text-dark;
+                display: inline-flex;
+                font-size: 28px;
+                font-weight: 700;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+
+            .heading-sparkle {
+                align-items: flex-start;
+                color: @ai-primary;
+                display: inline-flex;
+                height: 24px;
+                margin-left: 4px;
+                position: relative;
+                vertical-align: middle;
+                width: 30px;
+
+                .sparkle-large {
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                }
+
+                .sparkle-small {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+            }
+
+            .heading-subtitle {
+                color: @text-muted;
+                font-size: 15px;
+                margin: 0;
+            }
+        }
+
+        //  ── Search Input ──────────────────────────────────────
+
+        .query {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+
+            form {
+                max-width: 680px;
+                width: 100%;
+            }
+
+            .searchbox-input-wrapper {
+                align-items: flex-end;
+                background: @bg-card;
+                border: 1.5px solid @searchbox-input-wrapper-border-color;
+                border-radius: @border-radius-md;
+                display: flex;
+                padding: 14px 56px 14px 18px;
+                position: relative;
+                transition: border-color .25s ease, box-shadow .25s ease;
+
+                &:focus-within {
+                    border-color: @ai-primary;
+                    box-shadow: 0 0 0 3px rgba(79, 110, 247, .12);
+                }
+            }
+
+            .searchbox-input {
+                background: transparent;
+                border: none;
+                color: @text-dark;
+                flex: 1;
+                font-family: inherit;
+                font-size: 15px;
+                line-height: 1.5;
+                max-height: 120px;
+                outline: none;
+                overflow-y: auto;
+                resize: none;
+
+                &:focus {
+                    box-shadow: none;
+                }
+
+                &::placeholder {
+                    color: @searchbox-input-placeholder-color;
+                }
+            }
+
+            .searchbox-submit-btn {
+                align-items: center;
+                background: @ai-primary;
+                border: none;
+                border-radius: 50%;
+                bottom: 12px;
+                color: @bg-card;
+                cursor: pointer;
+                display: flex;
+                flex-shrink: 0;
+                height: 38px;
+                justify-content: center;
+                padding: 0;
+                position: absolute;
+                right: 12px;
+                transition: background .2s ease, transform .15s ease;
+                width: 38px;
+
+                &:hover {
+                    background: @ai-primary-dark;
+                    transform: scale(1.05);
+                }
+
+                &:active {
+                    transform: scale(.97);
+                }
+
+                svg {
+                    display: block;
+                    margin-right: 1px;
+                    margin-top: 2px;
+                }
+            }
+
+            .query-meta {
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                margin-top: 6px;
+                padding: 0 2px;
+
+                .query-char-count {
+                    color: @text-muted;
+                    font-size: 12px;
+                }
+
+                .query-hint {
+                    color: @text-muted;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        //  ── Error ─────────────────────────────────────────────
+
+        .error-wrapper {
+            padding-bottom: 10px;
+            
+            .error-message {
+                background: @ai-search-error-bg-color;
+                border-radius: @border-radius-sm;
+                color: @ai-search-error-color;
+                font-size: 14px;
+                margin: 0 auto 10px;
+                max-width: 680px;
+                padding: 12px 20px;
+                text-align: center;
+            }
+
+            .use-standard-search {
+                color: @text-muted;
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+
+        //  ── Products container ────────────────────────────────
+
+        .products-grid-container {
+
+            //  AI message bubble
+
+            .ai-message-block {
+                align-items: flex-start;
+                display: flex;
+                gap: 14px;
+                margin-bottom: 28px;
+                padding: 0 4px;
+            }
+
+            .ai-avatar {
+                align-items: center;
+                background: @ai-avatar-bg;
+                border-radius: 50%;
+                color: @ai-avatar-color;
+                display: flex;
+                flex-shrink: 0;
+                height: 38px;
+                justify-content: center;
+                margin-top: 2px;
+                width: 38px;
+            }
+
+            .ai-message-content {
+                flex: 1;
+
+                .ai-message-label {
+                    color: @text-dark;
+                    font-size: 15px;
+                    font-weight: 700;
+                    margin: 0 0 6px;
+                }
+
+                .message {
+                    color: @text-mid;
+                    font-size: 14px;
+                    line-height: 1.65;
+                    margin: 0;
+
+                    strong {
+                        color: @text-dark;
+                        font-weight: 600;
+                    }
+
+                    em,
+                    i {
+                        color: @text-mid;
+                        font-style: italic;
+                    }
+                }
+            }
+
+            //  ── Products grid ────────────────────────────────
+
+            .product-grid {
+                display: grid;
+                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+
+            .product-card {
+                background: @bg-card;
+                border-radius: @border-radius-md;
+                box-shadow: @shadow-card;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                transition: transform .2s ease, box-shadow .2s ease;
+
+                &:hover {
+                    box-shadow: @shadow-card-hover;
+                    transform: translateY(-4px);
+                }
+
+                .product-image-wrapper {
+                    align-items: center;
+                    background: @product-image-wrapper-bg;
+                    display: flex;
+                    justify-content: center;
+                    min-height: 180px;
+                    padding: 20px;
+                }
+
+                .product-image {
+                    display: block;
+                    max-width: 100%;
+                    object-fit: contain;
+                }
+
+                .product-card-body {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                    padding: 14px 16px 18px;
+                }
+
+                .product-name {
+                    color: @text-dark;
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 1.4;
+                    margin: 0;
+                }
+
+                .product-price {
+                    color: @text-mid;
+                    display: block;
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin-bottom: 10px;
+                }
+
+                .product-link {
+                    align-self: flex-start;
+                    background: @ai-primary;
+                    border-radius: 6px;
+                    color: @bg-card;
+                    display: inline-block;
+                    font-size: 13px;
+                    font-weight: 500;
+                    margin-top: auto;
+                    padding: 8px 14px;
+                    text-align: center;
+                    text-decoration: none;
+                    transition: background .2s ease;
+
+                    &:hover {
+                        background: @ai-primary-dark;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//  ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 767px) {
+
+    .searchbox-container {
+        padding: 24px 16px 40px;
+
+        .searchbox-header .heading {
+            font-size: 22px;
+        }
+
+        .query form {
+            max-width: 100%;
+        }
+
+        .products-grid-container .product-grid {
+            gap: 14px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        }
+    }
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026 MageSetu. All rights reserved.
+ *
+ * @package    MageSetu_SemanticSearch
+ * @author     MageSetu
+ * @copyright  Copyright (c) 2026 MageSetu
+ * @license    https://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @link       https://github.com/MageSetu/module-semantic-search
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                 <resource id="MageSetu_Common::manage">
+                    <resource id="MageSetu_SemanticSearch::manage" title="Semantic Search" sortOrder="200">
+                        <resource id="MageSetu_SemanticSearch::manage_products" title="Manage Products" sortOrder="100"/>
+                        <resource id="MageSetu_SemanticSearch::config" title="Configurations" sortOrder="700"/>
+                    </resource>
+                 </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

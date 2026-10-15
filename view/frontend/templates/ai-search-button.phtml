@@ -1,0 +1,15 @@
+<?php
+/**
+ * AI Search Button — header icon template
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$aiSearchUrl = $block->getUrl('ai-search');
+?>
+<div class="ai-search-btn-wrapper">
+    <a href="<?= $escaper->escapeUrl($aiSearchUrl) ?>"
+       title="<?= $escaper->escapeHtml(__('AI Search')) ?>"
+       class="ai-search-btn">
+    </a>
+</div>

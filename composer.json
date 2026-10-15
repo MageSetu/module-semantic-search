@@ -1,0 +1,42 @@
+{
+    "name": "magesetu/module-semantic-search",
+    "description": "MageSetu Semantic Search Magento 2 Module",
+    "type": "magento2-module",
+    "license": "Apache-2.0",
+    "version": "1.0.0",
+    "homepage": "https://github.com/MageSetu/module-semantic-search",
+    "keywords": [
+        "magento2",
+        "module",
+        "semantic-search",
+        "vector-search",
+        "ai-search",
+        "opensearch",
+        "qdrant",
+        "embeddings"
+    ],
+    "authors": [
+        {
+            "name": "MageSetu",
+            "homepage": "https://github.com/MageSetu"
+        }
+    ],
+    "require": {
+        "php": ">=8.4",
+        "magento/framework": ">=2.4.8",
+        "magesetu/module-common": ">=1.0.0",
+        "magesetu/module-ai-base": ">=1.0.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageSetu\\SemanticSearch\\": ""
+        }
+    },
+    "support": {
+        "issues": "https://github.com/MageSetu/module-semantic-search/issues",
+        "source": "https://github.com/MageSetu/module-semantic-search"
+    }
+}

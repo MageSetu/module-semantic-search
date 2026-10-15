@@ -1,0 +1,18 @@
+<?php
+/**
+ * AI Search page template
+ *
+ * @var \MageSetu\SemanticSearch\Block\AiSearch\Main $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<div id="ai-searchbox-component" data-bind="scope:'ai-searchbox'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "#ai-searchbox-component": {
+            "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout(); ?>
+        }
+    }
+    </script>
+</div>
